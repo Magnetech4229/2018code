@@ -29,12 +29,16 @@ public class Robot extends IterativeRobot {
 	private static final String kCustomAuto = "My Auto";
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
+	// differential drive is the new robot drive
 	DifferentialDrive drive;
 	Joystick left, right;
 	Talon elevator;
+	Talon cubeD1;
+	Talon cubeD2;
 	Talon DriveR;
 	Talon DriveL;
-	double speed;
+	double speed1;
+	double speed2;
 	double topSpeed;
 	double P;
 	double I;
@@ -60,20 +64,28 @@ public class Robot extends IterativeRobot {
 		m_chooser.addDefault("Default Auto", kDefaultAuto);
 		m_chooser.addObject("My Auto", kCustomAuto);
 		SmartDashboard.putData("Auto choices", m_chooser);
+		// stuff for diffrential drive
 		DriveR=new Talon(0);
 		DriveL=new Talon(1);
 		drive=new DifferentialDrive(DriveR, DriveL);
+		// joysticks
 		left = new Joystick(0);
 		right = new Joystick(1);
+		//elivator
 		elevator = new Talon(2);
-		speed = 0;
+		cubeD1 = new Talon(3);
+		cubeD2 = new Talon(4);
+		speed1 = 0;
+		speed2 = 0;
 		topSpeed = 0;
+		// gyrosphere
 		gyro = new ADXRS453Gyro();
 		gyro.startThread();
 		gyro.calibrate();
-		SmartDashboard.putNumber("P", 0.01);
-		SmartDashboard.putNumber("I", 0);
-		SmartDashboard.putNumber("D", 0);
+		SmartDashboard.putNumber("P", 0.3);
+		SmartDashboard.putNumber("I", 0.000001);
+		SmartDashboard.putNumber("D", 0.36);
+		turner = new PIDController(P, I, D, gyro, new gyroPIDoutput());
 		
 		
 	}
@@ -112,16 +124,26 @@ public class Robot extends IterativeRobot {
 				break;
 		}
 	}
-
+	public void teleopInit(){
+		turner.disable();
+			
+		
+	}
 	/**
 	 * This function is called periodically during operator control.
 	 */
 	@Override
 	public void teleopPeriodic() {
+		//some stuff for elevator
+		//drive.tankDrive(left.getRawAxis(1)*topSpeed, right.getRawAxis(1)*topSpeed);
 		drive.tankDrive(left.getRawAxis(1)*topSpeed, right.getRawAxis(1)*topSpeed);
+		
 		topSpeed = left.getZ()/2.0-0.5;
 		SmartDashboard.putNumber("left", left.getZ() );
-		speed = left.getZ();
+		SmartDashboard.putNumber("right", right.getZ() );
+		speed1 = left.getZ();
+		speed2 = right.getZ();
+		//some stuff for gyro
 		SmartDashboard.putNumber("gyro", gyro.getAngle());
 		SmartDashboard.putNumber("GyroAngle", gyro.getAngle());
 		SmartDashboard.putNumber("GyroPos", gyro.getPos());
@@ -146,15 +168,27 @@ public class Robot extends IterativeRobot {
 		 * 
 		 * 
 		 */
+		//actual elevator code... needs some work
 		if(left.getRawButton(1) == false) {
 			elevator.set(0);
 		
 		}
 		else {
-			elevator.set(speed);
+			elevator.set(speed1);
 			
+		if(right.getRawButton(1) == false) {
+			cubeD1.set(0);
+			cubeD2.set(0);
 			
 		}
+		
+		else {
+			cubeD1.set(speed2);
+			cubeD2.set(speed2);
+			
+			
+			
+		}}
 		
 	}
 
@@ -162,25 +196,20 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during test mode.
 	 */
 	
-	/**
-	 * PID controller stuff keep it disabled
-	 */
+
 	
 	@Override
 	public void testInit(){
-		P = SmartDashboard.getNumber("P", 0);
-		I = SmartDashboard.getNumber("I", 0);
-		D = SmartDashboard.getNumber("D", 0);
 		
-		SmartDashboard.putNumber("robotP", P);
-		SmartDashboard.putNumber("robotI", I);
-		SmartDashboard.putNumber("robotD", D);
 		
-		//(0.20, 0.000001, 0.3)
-		turner = new PIDController(P, I, D, gyro, new gyroPIDoutput());
+		
+		
+		//(0.1, 0.0000001, 0.07)
+		
 		gyro.reset();
-		turner.setSetpoint(90);
+		turner.setSetpoint(53);
 		turner.enable();
+		
 		
 		
 		
@@ -198,7 +227,14 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("GyroTemp", gyro.getTemp());
 		//SmartDashboard.putNumber("codep", P);
 		
+		SmartDashboard.putNumber("robotP", P);
+		SmartDashboard.putNumber("robotI", I);
+		SmartDashboard.putNumber("robotD", D);
 		
+		P = SmartDashboard.getNumber("P", 0);
+		I = SmartDashboard.getNumber("I", 0);
+		D = SmartDashboard.getNumber("D", 0);
+		turner.setPID(P, I, D);
 		
 		
 		
@@ -212,6 +248,7 @@ public class Robot extends IterativeRobot {
 		
 	}
 }
+
 
 
 
