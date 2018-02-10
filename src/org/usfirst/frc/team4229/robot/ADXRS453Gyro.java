@@ -5,9 +5,10 @@ import java.nio.ByteOrder;
 import java.util.BitSet;
 import java.util.TimerTask;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
+
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.Timer;
@@ -15,7 +16,9 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  * @author Kevin Harrilal (kevin@team2168.org)
  */
+
 public class ADXRS453Gyro implements PIDSource {
+
 
 	static final int DATA_SIZE = 4; //4 bytes = 32 bits
 	static final byte PARITY_BIT = (byte) 0x01; //parity check on first bit
@@ -364,6 +367,7 @@ public class ADXRS453Gyro implements PIDSource {
 			gyro.update();
 		}
 	}
+	
 	public double pidGet(){
 		return getAngle();
 	}
