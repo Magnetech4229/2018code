@@ -65,6 +65,7 @@ public class Robot extends IterativeRobot {
 	double P;
 	double I;
 	double D;
+	String gameData;
 	ADXRS453Gyro gyro;
 	PIDController turner;
 
@@ -206,7 +207,17 @@ public class Robot extends IterativeRobot {
 		//table.putBoolean("autoStart", true);
 		Robot.encoders.reset();
 		//autonomousCommand = chooser.getSelected();
-		autonomousCommand = new Autonomous1();
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		if(gameData.length() > 0)
+		{
+			if(gameData.charAt(0)== 'L') {
+				//left auto code here
+			}
+			else  {
+				//right auto code here
+			}
+		}
+		//autonomousCommand = new Autonomous1();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

@@ -1,9 +1,9 @@
 package org.usfirst.frc.team4229.robot;
 
-import org.usfirst.frc.team4229.robot.commands.Agitate;
+//import org.usfirst.frc.team4229.robot.commands.Agitate;
 import org.usfirst.frc.team4229.robot.commands.Climb;
 import org.usfirst.frc.team4229.robot.commands.ClimbBack;
-import org.usfirst.frc.team4229.robot.commands.FireAway;
+//import org.usfirst.frc.team4229.robot.commands.FireAway;
 import org.usfirst.frc.team4229.robot.commands.LTurn;
 import org.usfirst.frc.team4229.robot.commands.RTurn;
 import org.usfirst.frc.team4229.robot.commands.ServAuto;
