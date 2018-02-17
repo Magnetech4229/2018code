@@ -35,6 +35,7 @@ import org.usfirst.frc.team4229.robot.subsystems.Elevator;
 import org.opencv.core.Mat;
 import org.usfirst.frc.team4229.robot.GRIPGreenMaskPipeline;
 import org.usfirst.frc.team4229.robot.commands.Autonomous1;
+import org.usfirst.frc.team4229.robot.commands.Autonomous2;
 import org.usfirst.frc.team4229.robot.commands.DriveForwards;
 import org.usfirst.frc.team4229.robot.CameraThread;
 import org.usfirst.frc.team4229.robot.FURetro;
@@ -88,7 +89,6 @@ public class Robot extends IterativeRobot {
 	public static ServoMotor servoMotor = new ServoMotor();
 	public static Gyroscope gyroscope = new Gyroscope();
 	public static Encoders encoders = new Encoders();
-	public static PIDController turner = new PIDController(P, I, D, gyro, new gyroPIDoutput());
 	//public static CameraThread cameraThread = new CameraThread(); 
 	//public static Testing testing = new Testing();
 	public static OI oi;
@@ -220,12 +220,17 @@ public class Robot extends IterativeRobot {
 		}
 		//autonomousCommand = new Autonomous1();
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+		
+		  String autoSelected = SmartDashboard.getString("Auto Selector",
+		  "Default Auto"); switch(autoSelected) {
+		  
+		  case "My Auto":
+			  autonomousCommand = new Autonomous1(); break; 
+		  case "Default Auto": default:
+			  autonomousCommand = new Autonomous2(); break; 
+		  
+		  }
+		 
 		
 		
 
@@ -258,7 +263,7 @@ public class Robot extends IterativeRobot {
 	@Override
 
 	public void teleopInit(){
-		turner.disable();
+		
 		//table.putBoolean("teleStart", true);
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
@@ -328,10 +333,10 @@ public class Robot extends IterativeRobot {
 		
 		
 		//(0.1, 0.0000001, 0.07)
-		turner = new PIDController(P, I, D, gyro, new gyroPIDoutput());
+		//turner = new PIDController(P, I, D, gyro, new gyroPIDoutput());
 		gyro.reset();
-		turner.setSetpoint(53);
-		turner.enable();
+		//turner.setSetpoint(53);
+		//turner.enable();
 		
 		
 		
@@ -357,7 +362,7 @@ public class Robot extends IterativeRobot {
 		P = SmartDashboard.getNumber("P", 0);
 		I = SmartDashboard.getNumber("I", 0);
 		D = SmartDashboard.getNumber("D", 0);
-		turner.setPID(P, I, D);
+		//turner.setPID(P, I, D);
 		
 		
 		
