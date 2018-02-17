@@ -62,12 +62,12 @@ public class Robot extends IterativeRobot {
 	double speed1;
 	double speed2;
 	double topSpeed;
-	double P;
-	double I;
-	double D;
+	public static double P = 0.3;
+	public static double I = 0.000001;
+	public static double D = 0.36;
 	String gameData;
-	ADXRS453Gyro gyro;
-	PIDController turner;
+	public static ADXRS453Gyro gyro = new ADXRS453Gyro();
+
 
 	public void turn(double speed){
 
@@ -87,6 +87,7 @@ public class Robot extends IterativeRobot {
 	public static ServoMotor servoMotor = new ServoMotor();
 	public static Gyroscope gyroscope = new Gyroscope();
 	public static Encoders encoders = new Encoders();
+	public static PIDController turner = new PIDController(P, I, D, gyro, new gyroPIDoutput());
 	//public static CameraThread cameraThread = new CameraThread(); 
 	//public static Testing testing = new Testing();
 	public static OI oi;
@@ -131,13 +132,12 @@ public class Robot extends IterativeRobot {
 		speed2 = 0;
 		topSpeed = 0;
 		// gyrosphere
-		gyro = new ADXRS453Gyro();
 		gyro.startThread();
 		gyro.calibrate();
 		SmartDashboard.putNumber("P", 0.3);
 		SmartDashboard.putNumber("I", 0.000001);
 		SmartDashboard.putNumber("D", 0.36);
-		turner = new PIDController(P, I, D, gyro, new gyroPIDoutput());
+		
 
 		
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
@@ -211,7 +211,7 @@ public class Robot extends IterativeRobot {
 		if(gameData.length() > 0)
 		{
 			if(gameData.charAt(0)== 'L') {
-				//left auto code here
+				//left code here
 			}
 			else  {
 				//right auto code here
@@ -309,27 +309,9 @@ public class Robot extends IterativeRobot {
 		 */
 
 
-		if(right.getRawButton(1) == false) {
-			cubeD1.set(0);
-			cubeD2.set(0);
-			
-		}
-		
-		else {
-			cubeD1.set(speed2);
-			cubeD2.set(speed2);
-			
-			
-			
-		
-		
-
 		Scheduler.getInstance().run();
 		log();
 		LiveWindow.run();
-		
-		}
-
 	}
 
 	/**
@@ -345,11 +327,10 @@ public class Robot extends IterativeRobot {
 		
 		
 		//(0.1, 0.0000001, 0.07)
-		
+		turner = new PIDController(P, I, D, gyro, new gyroPIDoutput());
 		gyro.reset();
 		turner.setSetpoint(53);
 		turner.enable();
-		
 		
 		
 		

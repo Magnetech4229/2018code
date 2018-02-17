@@ -3,16 +3,26 @@ package org.usfirst.frc.team4229.robot.commands;
 import org.usfirst.frc.team4229.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
  */
 public class RTurn extends Command {
 
-    public RTurn() {
+	private double degrees;
+	private double  maxSeconds;
+	private Timer autoTimer;
+	
+	
+	
+    public RTurn(double inputDegrees, double inputMaxSeconds) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drivetrain);
+    	degrees = inputDegrees;
+    	maxSeconds = inputMaxSeconds;
+    	
     }
     
     // Called just before this Command runs the first time

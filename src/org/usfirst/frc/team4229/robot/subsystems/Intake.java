@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Intake extends Subsystem {
-	private SpeedController IntakeLeft = new Talon(3);
-	private SpeedController IntakeRight = new Talon(2);
+	private static SpeedController IntakeLeft = new Talon(3);
+	private static SpeedController IntakeRight = new Talon(2);
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -18,13 +18,13 @@ public class Intake extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void Grab(double speed){
+    public static void Grab(double speed){
     	IntakeLeft.set(speed);
     	IntakeRight.set(speed);
     	
     }
     
-    public void Release(double speed){
+    public static void Release(double speed){
     	IntakeLeft.set(speed * -1);
     	IntakeRight.set(speed * -1); 
     	

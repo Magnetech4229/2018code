@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Elevator extends Subsystem {
-	private SpeedController Elevator = new Talon(4);
+	private static SpeedController Elevator = new Talon(4);
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -17,12 +17,12 @@ public class Elevator extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void Up(double speed){
+    public static void Up(double speed){
     	Elevator.set(speed);
     	
     }
     
-    public void Down(double speed){
+    public static void Down(double speed){
     	Elevator.set(speed * -1); 
     	
     }
