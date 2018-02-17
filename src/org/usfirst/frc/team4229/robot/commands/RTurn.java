@@ -3,6 +3,7 @@ package org.usfirst.frc.team4229.robot.commands;
 import org.usfirst.frc.team4229.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -31,6 +32,7 @@ public class RTurn extends Command {
     	Robot.gyro.reset();
 		Robot.drivetrain.getPIDController().reset();
 		Robot.drivetrain.setSetpoint(degrees);
+		Robot.drivetrain.setPIDValues(SmartDashboard.getNumber("p",2), SmartDashboard.getNumber("i",0), SmartDashboard.getNumber("d",0));
 		autoTimer.start();
     }
 

@@ -97,5 +97,9 @@ public class Drivetrain extends PIDSubsystem {
         // e.g. yourMotor.set(output);
     	Robot.drivetrain.drive(-output, output);
     }
+    
+    public void setPIDValues(double inputP,double inputI,double inputD){
+    	getPIDController().setPID(inputP, inputI, inputD);
+    }
 }
 
