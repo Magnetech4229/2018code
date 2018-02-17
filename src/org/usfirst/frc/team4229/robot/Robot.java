@@ -127,8 +127,8 @@ public class Robot extends IterativeRobot {
 		right = new Joystick(1);
 		//elivator
 
-		cubeD1 = new Talon(3);
-		cubeD2 = new Talon(4);
+		//cubeD1 = new Talon(3);
+		//cubeD2 = new Talon(4);
 		speed1 = 0;
 		speed2 = 0;
 		topSpeed = 0;
@@ -141,11 +141,11 @@ public class Robot extends IterativeRobot {
 		
 
 		
-		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-	    camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
+		//UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+	    //camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
 	    
-	    UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture();
-	    camera1.setResolution(IMG_WIDTH, IMG_HEIGHT);
+	   // UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture();
+	    //camera1.setResolution(IMG_WIDTH, IMG_HEIGHT);
 	    
 	    //visionThread = new VisionThread(camera, new GRIPGreenMaskPipeline(), pipeline -> {
 	        //if (pipeline.maskOutput().empty()) {
@@ -163,18 +163,18 @@ public class Robot extends IterativeRobot {
 	    //camera = CameraServer.getInstance().addAxisCamera("axis-camera.local");
 
 		
-		oi = new OI();
+		///oi = new OI();
 		//table = NetworkTable.getTable("data");
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		
-		SmartDashboard.putNumber("Shoot Speed", 0.55);
-		SmartDashboard.putData("Auto mode", chooser);
-		SmartDashboard.putNumber("Drive Speed", 1.0);
-		SmartDashboard.putNumber("Servo Base", 0.85);
-		SmartDashboard.putNumber("Brake Speed", 0.5);
-		SmartDashboard.putNumber("Brake Thresh", 10.0);
-		SmartDashboard.putBoolean("Brakes", true);
+		//SmartDashboard.putNumber("Shoot Speed", 0.55);
+		//SmartDashboard.putData("Auto mode", chooser);
+		//SmartDashboard.putNumber("Drive Speed", 1.0);
+		//SmartDashboard.putNumber("Servo Base", 0.85);
+		//SmartDashboard.putNumber("Brake Speed", 0.5);
+		//SmartDashboard.putNumber("Brake Thresh", 10.0);
+		//SmartDashboard.putBoolean("Brakes", true);
 	}
 
 	/**
@@ -182,15 +182,6 @@ public class Robot extends IterativeRobot {
 	 * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
 	 */
-	@Override
-	public void disabledInit() {
-
-	}
-
-	@Override
-	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
-	}
 
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
@@ -317,7 +308,7 @@ public class Robot extends IterativeRobot {
 
 		Scheduler.getInstance().run();
 		log();
-		LiveWindow.run();
+		//LiveWindow.run();
 	}
 
 	/**
@@ -330,8 +321,6 @@ public class Robot extends IterativeRobot {
 	public void testInit(){
 		
 		
-		
-		
 		//(0.1, 0.0000001, 0.07)
 		//turner = new PIDController(P, I, D, gyro, new gyroPIDoutput());
 		gyro.reset();
@@ -339,11 +328,7 @@ public class Robot extends IterativeRobot {
 		//turner.enable();
 		
 		
-		
 	}
-	
-	
-	
 	
 	
 	@Override
