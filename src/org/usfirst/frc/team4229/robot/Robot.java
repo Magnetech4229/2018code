@@ -25,6 +25,7 @@ import org.usfirst.frc.team4229.robot.subsystems.Agitator;
 import org.usfirst.frc.team4229.robot.subsystems.Climber;
 import org.usfirst.frc.team4229.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team4229.robot.subsystems.Encoders;
+import org.usfirst.frc.team4229.robot.subsystems.GyroPID;
 import org.usfirst.frc.team4229.robot.subsystems.Gyroscope;
 import org.usfirst.frc.team4229.robot.subsystems.ServoMotor;
 import org.usfirst.frc.team4229.robot.subsystems.Shooter;

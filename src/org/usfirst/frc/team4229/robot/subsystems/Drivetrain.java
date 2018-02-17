@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,7 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class Drivetrain extends Subsystem {
+public class Drivetrain extends PIDSubsystem {
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -30,7 +31,7 @@ public class Drivetrain extends Subsystem {
 	static final double kDEADZONE = 0.1;
 	
 	public Drivetrain(){
-		super();
+		super("Drivetrain", 2.0, 0.0, 0.0);
 		
 	}
 
@@ -82,6 +83,19 @@ public class Drivetrain extends Subsystem {
     		n=n*0.5;
     	}
     	return n;
+    }
+    
+    protected double returnPIDInput() {
+        // Return your input value for the PID loop
+        // e.g. a sensor, like a potentiometer:
+        // yourPot.getAverageVoltage() / kYourMaxVoltage;
+        return Robot.gyro.getAngle();
+    }
+
+    protected void usePIDOutput(double output) {
+        // Use output to drive your system, like a motor
+        // e.g. yourMotor.set(output);
+    	Robot.drivetrain.drive(-output, output);
     }
 }
 
