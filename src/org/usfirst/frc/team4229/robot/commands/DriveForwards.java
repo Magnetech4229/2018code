@@ -10,9 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveForwards extends Command {
 	
 	private double error;
-	private double distance;
+	private double time;
 	private double driveForwardSpeed;
 	private final double TOLERANCE=0.1;
+	private double kp = 1.0/90.0 ;
+
 
     public DriveForwards() {
         // Use requires() here to declare subsystem dependencies
@@ -20,42 +22,47 @@ public class DriveForwards extends Command {
     	this(10, 0.5);
     }
     
-    public DriveForwards(double dist){
-    	this(dist, 0.5);
+    public DriveForwards(double time){
+    	this(time, 0.5);
     }
     
-    public DriveForwards(double dist, double maxSpeed){
+    public DriveForwards(double time, double maxSpeed){
     	requires(Robot.drivetrain);
-    	requires(Robot.encoders);
-    	distance = dist;
+    	this.time = time;
     	driveForwardSpeed = maxSpeed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.encoders.reset();
     	Robot.drivetrain.drive(0, 0);
-    	setTimeout(4);
+    	setTimeout(time);
+    	Robot.gyro.reset();
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	error = (distance - Robot.encoders.encLeft.getDistance());
-    	if (driveForwardSpeed * error >=  driveForwardSpeed){
-    		Robot.drivetrain.drive(driveForwardSpeed,
-					driveForwardSpeed);
-    	} else {
-			Robot.drivetrain.drive(driveForwardSpeed * error,
-					driveForwardSpeed * error);
-		}
+    	double left = driveForwardSpeed * (1 - Robot.gyro.getAngle() * kp);
+    	if (Math.abs(left) > Math.abs(driveForwardSpeed)){
+    		
+    		left = Math.signum(left) * driveForwardSpeed;
+    		
+    	}
     	
+    	double right = driveForwardSpeed * (1 + Robot.gyro.getAngle() * kp);
+    	if (Math.abs(right) > Math.abs(driveForwardSpeed)){
+    		
+    		right = Math.signum(right) * driveForwardSpeed;
+    		
+    	}
+    	
+    	Robot.drivetrain.drive(driveForwardSpeed, driveForwardSpeed);
     	Robot.drivetrain.log();
-    	Robot.encoders.log();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return (Math.abs(error) <= TOLERANCE) || isTimedOut();
+    	return isTimedOut();
     }
 
     // Called once after isFinished returns true
