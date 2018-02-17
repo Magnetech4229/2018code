@@ -28,11 +28,11 @@ public class RTurn extends Command {
     
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.enable();
     	Robot.gyro.reset();
+    	Robot.drivetrain.getPIDController().setPID(SmartDashboard.getNumber("P",2), SmartDashboard.getNumber("I",0), SmartDashboard.getNumber("D",0));
 		Robot.drivetrain.getPIDController().reset();
 		Robot.drivetrain.setSetpoint(degrees);
-		Robot.drivetrain.setPIDValues(SmartDashboard.getNumber("p",2), SmartDashboard.getNumber("i",0), SmartDashboard.getNumber("d",0));
+		Robot.drivetrain.enable();
 		autoTimer.start();
     }
 
