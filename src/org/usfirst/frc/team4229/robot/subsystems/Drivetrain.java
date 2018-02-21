@@ -2,6 +2,7 @@ package org.usfirst.frc.team4229.robot.subsystems;
 
 import org.usfirst.frc.team4229.robot.ADXRS453Gyro;
 import org.usfirst.frc.team4229.robot.Robot;
+import org.usfirst.frc.team4229.robot.commands.DriveForwards;
 import org.usfirst.frc.team4229.robot.commands.JoyDrive;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -38,18 +39,21 @@ public class Drivetrain extends PIDSubsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new JoyDrive());		
+    	setDefaultCommand(new DriveForwards(0.0, 0.0));
     }
     public void drive(double left, double right){
-    	Speed = ((Robot.oi.stickL.getZ() * -1) + 1) / 2;
-    	drive.tankDrive(-left * Speed, -right * Speed);
+    	drive.tankDrive(-left, -right);
     }
-    
+    public void driveAuto(double left, double right) {
+    	
+    	drive.tankDrive(-left,  -right);
+    	
+    }
     public void log(){
-		SmartDashboard.putNumber("Joystick L", Robot.oi.stickL.getY());
-		SmartDashboard.putNumber("Joystick R", Robot.oi.stickR.getY());
-		SmartDashboard.putBoolean("trigL", Robot.oi.trigL.get());
-		SmartDashboard.putNumber("ZAxis", Robot.oi.stickL.getZ());
+		//SmartDashboard.putNumber("Joystick L", Robot.oi.stickL.getY());
+		//SmartDashboard.putNumber("Joystick R", Robot.oi.stickR.getY());
+		//SmartDashboard.putBoolean("trigL", Robot.oi.trigL.get());
+		//SmartDashboard.putNumber("ZAxis", Robot.oi.stickL.getZ());
     }
     
 

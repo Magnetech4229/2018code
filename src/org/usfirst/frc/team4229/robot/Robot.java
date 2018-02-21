@@ -37,6 +37,7 @@ import org.usfirst.frc.team4229.robot.GRIPGreenMaskPipeline;
 import org.usfirst.frc.team4229.robot.commands.Autonomous1;
 import org.usfirst.frc.team4229.robot.commands.Autonomous2;
 import org.usfirst.frc.team4229.robot.commands.DriveForwards;
+import org.usfirst.frc.team4229.robot.commands.JoyDrive;
 import org.usfirst.frc.team4229.robot.CameraThread;
 import org.usfirst.frc.team4229.robot.FURetro;
 
@@ -105,7 +106,7 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-
+	
 
 	
 	
@@ -118,9 +119,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 
-		m_chooser.addDefault("Default Auto", kDefaultAuto);
-		m_chooser.addObject("My Auto", kCustomAuto);
-		SmartDashboard.putData("Auto choices", m_chooser);
+		chooser.addDefault("DriveForwards", new Autonomous1());
+		chooser.addObject("Turn Auto", new Autonomous2());
+		
+		SmartDashboard.putData("Auto choices", chooser);
 
 		// joysticks
 		left = new Joystick(0);
@@ -200,6 +202,7 @@ public class Robot extends IterativeRobot {
 		Robot.encoders.reset();
 		//autonomousCommand = chooser.getSelected();
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		
 		if(gameData.length() > 0)
 		{
 			if(gameData.charAt(0)== 'L') {
@@ -212,15 +215,9 @@ public class Robot extends IterativeRobot {
 		//autonomousCommand = new Autonomous1();
 
 		
-		  String autoSelected = SmartDashboard.getString("Auto Selector",
-		  "Default Auto"); switch(autoSelected) {
-		  
-		  case "My Auto":
-			  autonomousCommand = new Autonomous1(); break; 
-		  case "Default Auto": default:
-			  autonomousCommand = new Autonomous2(); break; 
-		  
-		  }
+		  autonomousCommand = chooser.getSelected(); 
+		 
+
 		 
 		
 		
@@ -261,6 +258,7 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		//drivetrain.drive(1, 1);
+		drivetrain.setDefaultCommand(new JoyDrive());
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 			

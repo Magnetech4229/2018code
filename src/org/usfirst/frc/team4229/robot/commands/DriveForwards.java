@@ -34,7 +34,7 @@ public class DriveForwards extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.drive(0, 0);
+    	Robot.drivetrain.driveAuto(0, 0);
     	setTimeout(time);
     	Robot.gyro.reset();
     	
@@ -56,7 +56,7 @@ public class DriveForwards extends Command {
     		
     	}
     	
-    	Robot.drivetrain.drive(driveForwardSpeed, driveForwardSpeed);
+    	Robot.drivetrain.driveAuto(driveForwardSpeed, driveForwardSpeed);
     	Robot.drivetrain.log();
     }
 
@@ -67,7 +67,7 @@ public class DriveForwards extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.drivetrain.drive(0, 0);
+    	Robot.drivetrain.driveAuto(0, 0);
     }
 
     // Called when another command which requires one or more of the same

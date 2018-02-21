@@ -13,7 +13,7 @@ public class RTurn extends Command {
 
 	private double degrees;
 	private double  maxSeconds;
-	private Timer autoTimer;
+	private Timer autoTimer = new Timer();
 	
 	
 	

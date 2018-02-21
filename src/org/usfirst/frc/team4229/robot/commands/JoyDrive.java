@@ -50,7 +50,9 @@ public class JoyDrive extends Command {
     	}
     	*/
     	
-    	Robot.drivetrain.drive(L, R);
+    	Speed = ((Robot.oi.stickL.getZ() * -1) + 1) / 2;
+    	
+    	Robot.drivetrain.drive(L * Speed, R * Speed);
     	
     	
     	//Robot.drivetrain.drive(L*Speed, R*Speed);
