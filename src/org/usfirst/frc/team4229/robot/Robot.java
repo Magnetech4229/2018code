@@ -107,6 +107,8 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
+	public Autonomous2 sandwich = new Autonomous2(); 
+	
 
 	
 	
@@ -120,14 +122,14 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 
 		chooser.addDefault("DriveForwards", new Autonomous1());
-		chooser.addObject("Turn Auto", new Autonomous2());
+		chooser.addObject("Turn Auto", sandwich);
 		
 		SmartDashboard.putData("Auto choices", chooser);
 
 		// joysticks
 		left = new Joystick(0);
 		right = new Joystick(1);
-		//elivator
+		//elevator
 
 		//cubeD1 = new Talon(3);
 		//cubeD2 = new Talon(4);
@@ -203,14 +205,11 @@ public class Robot extends IterativeRobot {
 		//autonomousCommand = chooser.getSelected();
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
+		sandwich.Setgamedata(gameData);
+		
 		if(gameData.length() > 0)
 		{
-			if(gameData.charAt(0)== 'L') {
-				//left code here
-			}
-			else  {
-				//right auto code here
-			}
+
 		}
 		//autonomousCommand = new Autonomous1();
 
