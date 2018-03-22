@@ -17,7 +17,7 @@ public class Autonomous2 extends CommandGroup {
     	
     	//AUTONOMOUS INSTRUCTIONS
     	
-    	addSequential(new DriveForwards(300, 1)); //Placeholder time value- needs to go about 3 feet
+    	addSequential(new DriveForwards(10, 10)); //Placeholder time value- needs to go about 3 feet
     	
     	if(gamedata.length() > 0)
     	{
@@ -31,8 +31,19 @@ public class Autonomous2 extends CommandGroup {
     		}
     	}
 
-    	
-    	addSequential(new DriveForwards(300, 1)); //Placeholder time value- needs to go about 6 feet
+    	addSequential(new DriveForwards(10,10));//placehonlder value - needs to go about 4.5 feet
+    	if(gamedata.length() > 0)
+    	{
+    		if(gamedata.charAt(0) == 'L')
+    		{
+    			addSequential(new RTurn(90, 3));
+    			
+    		} else {
+    			addSequential(new RTurn(-90, 3));
+    			
+    		}
+    	}
+    	addSequential(new DriveForwards(10, 10)); //Placeholder time value- needs to go about 9 feet
     	
     	
     	

@@ -42,11 +42,11 @@ public class Drivetrain extends PIDSubsystem {
     	setDefaultCommand(new DriveForwards(0.0, 0.0));
     }
     public void drive(double left, double right){
-    	drive.tankDrive(-left, -right);
+    	drive.tankDrive(left, right);
     }
     public void driveAuto(double left, double right) {
     	
-    	drive.tankDrive(-left,  -right);
+    	drive.tankDrive(left,  right);
     	
     }
     public void log(){
@@ -99,7 +99,7 @@ public class Drivetrain extends PIDSubsystem {
     protected void usePIDOutput(double output) {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
-    	Robot.drivetrain.drive(-output, output);
+    	Robot.drivetrain.drive(output, -output);
     }
     
     public void setPIDValues(double inputP,double inputI,double inputD){

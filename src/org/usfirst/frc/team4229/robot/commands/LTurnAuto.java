@@ -28,18 +28,16 @@ public class LTurnAuto extends Command {
     	angle = a;
     	turnSpeed = maxSpeed;
     	requires(Robot.drivetrain);
-    	requires(Robot.gyroscope);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.gyroscope.gyroSPI.reset();
     	setTimeout(1);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	error = angle - Robot.gyroscope.gyroSPI.getAngle();
+    	error = angle - Robot.gyro.getAngle();
     	if (turnSpeed * error >= turnSpeed){
     		Robot.drivetrain.drive(-turnSpeed, turnSpeed);
     	}
@@ -47,7 +45,6 @@ public class LTurnAuto extends Command {
     		Robot.drivetrain.drive(-turnSpeed * error, turnSpeed * error);
     	}
     	Robot.drivetrain.log();
-    	Robot.gyroscope.log();
     }
 
     // Make this return true when this Command no longer needs to run execute()

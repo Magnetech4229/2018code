@@ -36,6 +36,7 @@ import org.opencv.core.Mat;
 import org.usfirst.frc.team4229.robot.GRIPGreenMaskPipeline;
 import org.usfirst.frc.team4229.robot.commands.Autonomous1;
 import org.usfirst.frc.team4229.robot.commands.Autonomous2;
+import org.usfirst.frc.team4229.robot.commands.Autonomus3;
 import org.usfirst.frc.team4229.robot.commands.DriveForwards;
 import org.usfirst.frc.team4229.robot.commands.JoyDrive;
 import org.usfirst.frc.team4229.robot.CameraThread;
@@ -72,12 +73,6 @@ public class Robot extends IterativeRobot {
 	public static ADXRS453Gyro gyro = new ADXRS453Gyro();
 
 
-	public void turn(double speed){
-
-		
-	}
-
-
 	private static final int IMG_WIDTH = 1600;
 	private static final int IMG_HEIGHT = 800;
 	//public static ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
@@ -88,7 +83,6 @@ public class Robot extends IterativeRobot {
 	//public static GRIPGreenMaskPipeline greenMaskPipeline = new GRIPGreenMaskPipeline();
 	//public static FURetro fuRetro = new FURetro();
 	public static ServoMotor servoMotor = new ServoMotor();
-	public static Gyroscope gyroscope = new Gyroscope();
 	public static Encoders encoders = new Encoders();
 	//public static CameraThread cameraThread = new CameraThread(); 
 	//public static Testing testing = new Testing();
@@ -122,7 +116,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 
 		chooser.addDefault("DriveForwards", new Autonomous1());
+		chooser.addObject("Turn", new Autonomus3());
 		chooser.addObject("Turn Auto", sandwich);
+		
 		
 		SmartDashboard.putData("Auto choices", chooser);
 
@@ -139,6 +135,7 @@ public class Robot extends IterativeRobot {
 		// gyrosphere
 		gyro.startThread();
 		gyro.calibrate();
+		gyro.reset();
 		SmartDashboard.putNumber("P", 0.3);
 		SmartDashboard.putNumber("I", 0.000001);
 		SmartDashboard.putNumber("D", 0.36);
@@ -257,6 +254,7 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		//drivetrain.drive(1, 1);
+		oi=new OI();
 		drivetrain.setDefaultCommand(new JoyDrive());
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
@@ -349,7 +347,7 @@ public class Robot extends IterativeRobot {
 		
 		
 	}
-	
+	/*
 	public class gyroPIDoutput implements PIDOutput {
 		public void pidWrite(double output){
 			turn(output);
@@ -358,11 +356,10 @@ public class Robot extends IterativeRobot {
 		
 
 		//LiveWindow.run();
-	}
+	}*/
 	
 	private void log() {
 		drivetrain.log();
-		gyroscope.log();
 		encoders.log();
 
 	}

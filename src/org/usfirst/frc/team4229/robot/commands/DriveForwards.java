@@ -56,7 +56,7 @@ public class DriveForwards extends Command {
     		
     	}
     	
-    	Robot.drivetrain.driveAuto(driveForwardSpeed, driveForwardSpeed);
+    	Robot.drivetrain.driveAuto(left, right);
     	Robot.drivetrain.log();
     }
 
