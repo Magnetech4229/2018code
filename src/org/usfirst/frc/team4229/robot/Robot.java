@@ -202,8 +202,6 @@ public class Robot extends IterativeRobot {
 		//autonomousCommand = chooser.getSelected();
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
-		sandwich.Setgamedata(gameData);
-		
 		if(gameData.length() > 0)
 		{
 
@@ -228,6 +226,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		SmartDashboard.putNumber("gyro", gyro.getAngle());
+
 		log();
 		/**
 		if (Robot.encoders.getDistance()<1){
