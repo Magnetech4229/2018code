@@ -2,8 +2,10 @@ package org.usfirst.frc.team4229.robot;
 
 //import org.usfirst.frc.team4229.robot.commands.Agitate;
 import org.usfirst.frc.team4229.robot.commands.Climb;
+
 import org.usfirst.frc.team4229.robot.commands.ClimbBack;
 //import org.usfirst.frc.team4229.robot.commands.FireAway;
+import org.usfirst.frc.team4229.robot.Robot;
 import org.usfirst.frc.team4229.robot.commands.LTurn;
 import org.usfirst.frc.team4229.robot.commands.RTurn;
 import org.usfirst.frc.team4229.robot.commands.ServAuto;
@@ -29,9 +31,9 @@ public class OI {
 	// number it is.
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
-	
-	public Joystick stickL = new Joystick(0);
+	Joystick stickL = new Joystick(0);
 	public Joystick stickR = new Joystick(1); 
+	
 	public Button trigL = new JoystickButton(stickL, 1);
 	public Button trigR = new JoystickButton(stickR, 1);
 	public Button b11L = new JoystickButton(stickL, 11);
@@ -44,6 +46,7 @@ public class OI {
 	public Button b10r = new JoystickButton(stickR, 10);
 	public Button b2L = new JoystickButton(stickL, 2);
 	public boolean climb_switch = false;
+
 	public OI(){
 		//trigR.whileHeld(new FireAway());
 		//trigL.whileHeld(new ServoMove());
