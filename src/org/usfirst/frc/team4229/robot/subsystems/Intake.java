@@ -19,8 +19,8 @@ public class Intake extends Subsystem {
     }
     
     public static void Grab(double speed){
-    	IntakeLeft.set(.2 * speed);
-    	IntakeRight.set(.2 * speed);
+    	IntakeLeft.set(1 * speed);
+    	IntakeRight.set(1 * speed);
     	
     }
     

@@ -25,7 +25,7 @@ public class JoyDrive extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drivetrain);
-    	requires(Robot.encoders);
+    	//requires(Robot.encoders);
     }
 
     // Called just before this Command runs the first time

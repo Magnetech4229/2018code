@@ -41,6 +41,7 @@ public class OI {
 	public Button b7R = new JoystickButton(stickR, 7);
 	public Button b9R = new JoystickButton(stickR, 9);
 	public Button b2R = new JoystickButton(stickR, 2);
+	public Button b10r = new JoystickButton(stickR, 10);
 	public Button b2L = new JoystickButton(stickL, 2);
 	public boolean climb_switch = false;
 	public OI(){
@@ -51,8 +52,8 @@ public class OI {
 		//b3L.whileHeld(new LTurn());
 		b6R.whileHeld(new ClimbBack());
 		b7R.whileHeld(new Climb());
-		b2R.whileHeld(new Grab());
-		b2L.whileHeld(new Release());
+		b2R.whileHeld(new Release());
+		b2L.whileHeld(new Grab());
 		trigR.whileHeld(new Up());
 		trigL.whileHeld(new Down());
 		

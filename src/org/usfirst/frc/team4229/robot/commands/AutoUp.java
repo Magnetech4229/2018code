@@ -5,16 +5,24 @@ import org.usfirst.frc.team4229.robot.OI;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
  */
-public class Down extends Command {
+public class AutoUp extends Command {
 
-    public Down() {
+	private Timer autoTimer = new Timer();
+	private double  maxSeconds;
+	private double speed;
+	
+
+    public AutoUp(double time, double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.elevator);
+    	requires(Robot.intake);
+    	maxSeconds = time;
+    	this.speed = speed;
     }
 
     // Called just before this Command runs the first time
@@ -23,23 +31,16 @@ public class Down extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Robot.elevator.Down(((Robot.oi.stickL.getZ() * -1) + 1) / 2);// kinda not working no clue why
-    	Robot.elevator.Down(0.7);// this works though
+    	Robot.elevator.Up(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return (autoTimer.get()>maxSeconds);
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.elevator.Down(0.0);
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	end();
+    	Robot.elevator.Up(0.0);
     }
 }

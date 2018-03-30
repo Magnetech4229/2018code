@@ -5,11 +5,14 @@ import org.usfirst.frc.team4229.robot.OI;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
  */
 public class Release extends Command {
+
+	
 
     public Release() {
         // Use requires() here to declare subsystem dependencies

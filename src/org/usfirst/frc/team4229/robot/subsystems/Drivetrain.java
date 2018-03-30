@@ -26,6 +26,7 @@ public class Drivetrain extends PIDSubsystem {
 	
 	private SpeedController motLeft = new Talon(1);
 	private SpeedController motRight = new Talon(0);
+	@SuppressWarnings("deprecation")
 	private RobotDrive drive = new RobotDrive(motLeft, motRight);
 	public double Speed;
 
@@ -41,19 +42,22 @@ public class Drivetrain extends PIDSubsystem {
         //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new DriveForwards(0.0, 0.0));
     }
-    public void drive(double left, double right){
-    	drive.tankDrive(left, right);
+    @SuppressWarnings("deprecation")
+	public void drive(double left, double right){
+    	Speed = ((Robot.oi.stickL.getZ()*-1) + 1) / 2;
+    	drive.tankDrive(left *Speed, right *Speed);
     }
-    public void driveAuto(double left, double right) {
+    @SuppressWarnings("deprecation")
+	public void driveAuto(double left, double right) {
     	
     	drive.tankDrive(left,  right);
     	
     }
     public void log(){
-		//SmartDashboard.putNumber("Joystick L", Robot.oi.stickL.getY());
-		//SmartDashboard.putNumber("Joystick R", Robot.oi.stickR.getY());
-		//SmartDashboard.putBoolean("trigL", Robot.oi.trigL.get());
-		//SmartDashboard.putNumber("ZAxis", Robot.oi.stickL.getZ());
+		SmartDashboard.putNumber("Joystick L", Robot.oi.stickL.getY());
+		SmartDashboard.putNumber("Joystick R", Robot.oi.stickR.getY());
+		SmartDashboard.putBoolean("trigL", Robot.oi.trigL.get());
+		SmartDashboard.putNumber("ZAxis", Robot.oi.stickL.getZ());
     }
     
 

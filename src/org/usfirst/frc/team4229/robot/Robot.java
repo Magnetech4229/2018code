@@ -58,11 +58,11 @@ public class Robot extends IterativeRobot {
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
 	// differential drive is the new robot drive
-	Joystick left, right;
-	Talon cubeD1;
-	Talon cubeD2;
-	Talon DriveR;
-	Talon DriveL;
+	//Joystick left, right;
+	//Talon cubeD1;
+	//Talon cubeD2;
+	//Talon DriveR;
+	//Talon DriveL;
 	double speed1;
 	double speed2;
 	double topSpeed;
@@ -83,7 +83,7 @@ public class Robot extends IterativeRobot {
 	//public static GRIPGreenMaskPipeline greenMaskPipeline = new GRIPGreenMaskPipeline();
 	//public static FURetro fuRetro = new FURetro();
 	public static ServoMotor servoMotor = new ServoMotor();
-	public static Encoders encoders = new Encoders();
+	//public static Encoders encoders = new Encoders();
 	//public static CameraThread cameraThread = new CameraThread(); 
 	//public static Testing testing = new Testing();
 	public static OI oi;
@@ -120,11 +120,11 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Turn Auto", sandwich);
 		
 		
-		SmartDashboard.putData("Auto choices", chooser);
+		//SmartDashboard.putData("Auto choices", chooser);
 
 		// joysticks
-		left = new Joystick(0);
-		right = new Joystick(1);
+		//left = new Joystick(0);
+		//right = new Joystick(1);
 		//elevator
 
 		//cubeD1 = new Talon(3);
@@ -198,18 +198,29 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		//table.putBoolean("autoStart", true);
-		Robot.encoders.reset();
+		//Robot.encoders.reset();
+		//autonomousCommand = new Autonomous1();
 		//autonomousCommand = chooser.getSelected();
+		
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
 		if(gameData.length() > 0)
 		{
-
+			if(gameData.charAt(0)=='L')
+			{
+				//left auto
+				autonomousCommand = new Autonomus3();
+			}
+			else {
+				//right auto
+				autonomousCommand = new Autonomous2();
+			}
 		}
 		//autonomousCommand = new Autonomous1();
 
 		
-		  autonomousCommand = chooser.getSelected(); 
+		  //autonomousCommand = chooser.getSelected(); 
+		  
 		 
 
 		 
@@ -269,11 +280,11 @@ public class Robot extends IterativeRobot {
 
 
 		
-		topSpeed = left.getZ()/2.0-0.5;
-		SmartDashboard.putNumber("left", left.getZ() );
-		SmartDashboard.putNumber("right", right.getZ() );
-		speed1 = left.getZ();
-		speed2 = right.getZ();
+		//topSpeed = left.getZ()/2.0-0.5;
+		//SmartDashboard.putNumber("left", left.getZ() );
+		//SmartDashboard.putNumber("right", right.getZ() );
+		//speed1 = left.getZ();
+		//speed2 = right.getZ();
 		//some stuff for gyro
 		SmartDashboard.putNumber("gyro", gyro.getAngle());
 		SmartDashboard.putNumber("GyroAngle", gyro.getAngle());
@@ -360,7 +371,7 @@ public class Robot extends IterativeRobot {
 	
 	private void log() {
 		drivetrain.log();
-		encoders.log();
+		//encoders.log();
 
 	}
 }

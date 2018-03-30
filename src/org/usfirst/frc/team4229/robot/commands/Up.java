@@ -23,7 +23,8 @@ public class Up extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.elevator.Up(((Robot.oi.stickL.getZ() * -1) + 1) / 2);
+    	//Robot.elevator.Up(((Robot.oi.stickL.getZ() * -1) + 1) / 2);// kinda not working, no idea why
+    	Robot.elevator.Up(0.7);// this works though
     }
 
     // Make this return true when this Command no longer needs to run execute()
